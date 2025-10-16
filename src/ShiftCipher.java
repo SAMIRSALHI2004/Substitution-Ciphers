@@ -4,7 +4,7 @@ public class ShiftCipher {
         String cypherText ="";
         for (int i = 0; i < message.length(); i++) {
             int charPositon = alpha.indexOf(message.charAt(i));
-            int newPosition = (charPositon+key)%28;
+            int newPosition = (charPositon+key)%alpha.length();
             char newChar = alpha.charAt(newPosition);
             cypherText+=newChar;
 
@@ -15,9 +15,9 @@ public class ShiftCipher {
         String plainText ="";
         for (int i = 0; i < message.length(); i++) {
             int charPositon = alpha.indexOf(message.charAt(i));
-            int newPosition = (charPositon-key)%28;
+            int newPosition = (charPositon-key)%alpha.length();
             if(newPosition < 0){
-                newPosition+=28;
+                newPosition+=alpha.length();
             }
             char newChar = alpha.charAt(newPosition);
             plainText+=newChar;

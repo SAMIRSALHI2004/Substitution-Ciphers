@@ -4,7 +4,7 @@ public class CaesarCipher {
         String cypherText ="";
         for (int i = 0; i < message.length(); i++) {
             int charPositon = alpha.indexOf(message.charAt(i));
-            int newPosition = (charPositon+3)%28;
+            int newPosition = (charPositon+3)%alpha.length();
             char newChar = alpha.charAt(newPosition);
             cypherText+=newChar;
 
@@ -15,9 +15,9 @@ public class CaesarCipher {
         String plainText ="";
         for (int i = 0; i < message.length(); i++) {
             int charPositon = alpha.indexOf(message.charAt(i));
-            int newPosition = (charPositon-3)%28;
+            int newPosition = (charPositon-3)%alpha.length();
             if(newPosition < 0){
-                newPosition+=28;
+                newPosition+=alpha.length();
             }
             char newChar = alpha.charAt(newPosition);
             plainText+=newChar;
