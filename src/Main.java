@@ -1,4 +1,6 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
@@ -22,8 +24,35 @@ public class Main {
         String decrypted = AffineCipher.decryption(encrypted, a, b);
 
         System.out.println("Original Message:  " + message);
-        System.out.println("Encrypted Message: " + encrypted);
-        System.out.println("Decrypted Message: " + decrypted);
+        System.out.println("the encription message  with affine cipher is : " + encrypted);
+        System.out.println("the decription message  with affine cipher is : " + decrypted);
+        //frquency analysis
+        String text = "";
+        try {
+            text = new String(Files.readAllBytes(Paths.get("src/shift.txt")));
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return;
+        }
+        Object[] result = FrequencyAnalysis.sortByFrequency(text);
+
+        char[] symbols = (char[]) result[0];
+        int[] freq = (int[]) result[1];
+
+        System.out.println("Symbol | Frequency");
+        for (int i = 0; i < symbols.length; i++) {
+            if (freq[i] > 0) {
+                if (symbols[i] == ' ')
+                    System.out.println("[space]" + " | " + freq[i]);
+                else
+                    System.out.println(symbols[i] + "      | " + freq[i]);
+            }
+        }
+        int key = symbols[0]-'e'%28;
+        if (key < 0){
+            key+=28;
+        }
+        System.out.println("the decription of content in file shift.txt is "+ShiftCipher.decryption(text ,key));
 
     }
 }
