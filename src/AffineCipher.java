@@ -71,6 +71,12 @@ public class AffineCipher {
         }
         return plainText;
     };
+
+    public static void  affinekey (int a,int b,String messsage) {
+
+
+    }
+
     public static void main(String[] args) {
 
     }

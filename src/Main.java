@@ -11,7 +11,7 @@ public class Main {
         System.out.println("the encription message  with shift cipher is "+  ShiftCipher.encryption("hello world",4));
         System.out.println("the decription message  with shift cipher is "+  ShiftCipher.decryption("lippsd.svph",4));
         //Affine Cipher
-        int a = 4;
+        int a = 5;
         int b = 6;
 
         if (AffineCipher.gcd(a, 28) != 1) {
@@ -48,11 +48,15 @@ public class Main {
                     System.out.println(symbols[i] + "      | " + freq[i]);
             }
         }
-        int key = symbols[0]-'e'%28;
+        int key = (symbols[0]-'e')%28;
         if (key < 0){
             key+=28;
         }
-        System.out.println("the decription of content in file shift.txt is "+ShiftCipher.decryption(text ,key));
+        System.out.println("the key used  for get the encripted message in shift.txt is "+ key);
+        System.out.println("the decription of content in file shift.txt is : "+ShiftCipher.decryption(text ,key));
+//        Vigenère Cipher
+        System.out.println("the encription message  with vigenere cipher is "+  VigenèreCipher.encryption("hello world","samir"));
+        System.out.println("the decription message  with vigenere cipher is "+  VigenèreCipher.decryption("zextdrw.zav","samir"));
 
     }
 }
