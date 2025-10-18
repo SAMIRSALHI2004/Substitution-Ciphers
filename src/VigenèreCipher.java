@@ -42,4 +42,31 @@ public class VigenèreCipher {
         }
         return plainText;
     };
+    public static String generateUnknounKey(String plain, String cipher) {
+        int x = plain.length();
+        String generatekey = "";
+        for (int i = 0; i < x; i++) {
+            int d = ((alpha.indexOf(cipher.charAt(i))-alpha.indexOf(plain.charAt(i)))+alpha.length())%alpha.length();
+            generatekey += alpha.charAt(d);
+
+        }
+
+
+        return generatekey;
+    }
+
+
+        public static String findPattern(String text) {
+            for (int len = 1; len <= text.length() / 2; len++) {
+                String pattern = text.substring(0, len);
+                if (text.startsWith(pattern.repeat(text.length() / len))) {
+                    return pattern;
+                }
+            }
+            return "";
+        }
+
+        public static void main(String[] args) {
+
+    }
 }

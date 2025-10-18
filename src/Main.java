@@ -1,6 +1,8 @@
 import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
-import java.nio.file.Paths;//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+import java.nio.file.Paths;
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +28,7 @@ public class Main {
         System.out.println("Original Message:  " + message);
         System.out.println("the encription message  with affine cipher is : " + encrypted);
         System.out.println("the decription message  with affine cipher is : " + decrypted);
-        //frquency analysis
+        //frquency analysis on shift cipher
         String text = "";
         try {
             text = new String(Files.readAllBytes(Paths.get("src/shift.txt")));
@@ -54,9 +56,50 @@ public class Main {
         }
         System.out.println("the key used  for get the encripted message in shift.txt is "+ key);
         System.out.println("the decription of content in file shift.txt is : "+ShiftCipher.decryption(text ,key));
+        //frequency analysis on  affine cipher
+        String text2 = "";
+        try {
+            text2 = new String(Files.readAllBytes(Paths.get("src/affine.txt")));
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return;
+        }
+        Object[] result2 = FrequencyAnalysis.sortByFrequency(text2);
+
+        char[] symbols2 = (char[]) result2[0];
+        int[] freq2 = (int[]) result2[1];
+
+        System.out.println("Symbol | Frequency");
+        for (int i = 0; i < symbols2.length; i++) {
+            if (freq2[i] > 0) {
+                if (symbols2[i] == ' ')
+                    System.out.println("[space]" + " | " + freq2[i]);
+                else
+                    System.out.println(symbols2[i] + "      | " + freq2[i]);
+            }
+        }
+
+
+        try {
+            int[] keyaffine = AffineCipher.affinekey(symbols2[0], symbols2[2], 'e', 't');
+            System.out.println("The key in affine cipher is a=" + keyaffine[0] + ", b=" + keyaffine[1]);
+
+            System.out.println("the decripted of cipher text affter defind the key of encription is " + AffineCipher.decryption(text2,keyaffine[0],keyaffine[1]));
+
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+
 //        Vigenère Cipher
-        System.out.println("the encription message  with vigenere cipher is "+  VigenèreCipher.encryption("hello world","samir"));
-        System.out.println("the decription message  with vigenere cipher is "+  VigenèreCipher.decryption("zextdrw.zav","samir"));
+        System.out.println("the encription message  with vigenere cipher is "+  VigenèreCipher.encryption("hello world","cyber"));
+
+        System.out.println("the decription message  with vigenere cipher is "+  VigenèreCipher.decryption("jampdbspvaf","cyber"));
+        String unknounKey  = VigenèreCipher.generateUnknounKey("hello world","jampdbspvaf");
+
+        System.out.println("generate unknoun key from cipher text and plain text "+ VigenèreCipher.findPattern(unknounKey));
+
+
+
 
     }
 }
